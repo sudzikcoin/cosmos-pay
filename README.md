@@ -56,7 +56,7 @@ A fresh checkout to working end-to-end payment in ~5 minutes:
 
 ```bash
 # 1. Clone + install deps
-git clone https://github.com/suverse/cosmos-pay.git
+git clone https://github.com/sudzikcoin/cosmos-pay.git
 cd cosmos-pay
 go mod tidy
 
