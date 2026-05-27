@@ -124,6 +124,31 @@ go run ./tools/grant \
 
 Use `--help` for the full flag list; defaults target Noble testnet.
 
+### `tools/fixture`
+
+Emits a single `{paymentPayload, paymentRequirements}` JSON pair with
+a fresh ADR-036-signed authorization from the payer. Useful for
+testing downstream resource servers, middleware, or payment gateways
+that consume the facilitator over HTTP — the JSON is exactly what
+`POST /settle` (and `POST /verify`) expect as a request body.
+
+Each invocation generates a fresh random nonce and a tight validity
+window (defaults: `validAfter = now - 5`, `validBefore = now + 50`,
+i.e. a 55-second window that fits within a 60-second
+`maxTimeoutSeconds`). Re-run before each settle.
+
+```bash
+go run ./tools/fixture \
+    --payer-mnemonic "$X402_PAYER_MNEMONIC" \
+    --recipient "$X402_PAY_TO" \
+    --facilitator "$X402_FACILITATOR_GRANTEE" \
+    --amount 10000 \
+    --output ./signed-settle.json
+```
+
+Pass `--output -` to print to stdout. Use `--help` for the full flag
+list; defaults target Noble testnet `grand-1`.
+
 ## Environment variables
 
 | Var                          | Default                                          | Used by              |
